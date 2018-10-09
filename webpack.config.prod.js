@@ -4,7 +4,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 module.exports = {
     mode: 'production',
     output: {
-        filename: 'index.js',
+        filename: 'anim.min.js',
         path: path.resolve(__dirname,'./lib')
     },
     module: {
