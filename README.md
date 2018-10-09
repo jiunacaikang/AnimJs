@@ -1,9 +1,12 @@
 # fpsAnim
+``` bash
 fps animation
 
 npm run dev 
 
-npm run build for uglify & drop console.log
+#uglify & drop console.log
+npm run build
+```
 
 
 演示地址：<a href="https://jiunacaikang.github.io/fpsAnim/demo/" target="_blank">fpsAnim</a>
