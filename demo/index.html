@@ -124,6 +124,11 @@
 			an.run = function(i){
 				timeBox.style.backgroundPosition = - (i - 1) * 78.5 + "px 0px"
 			}
+			if(!isNaN($$("stopTo").value)){
+				console.log($$("stopTo").value)
+				an.start($$("times").value).setFps($$("fps").value).thenStop($$("stopTo").value);
+				return false;
+			}
 			//动画跑起来 并且设置帧率
 			an.start($$("times").value).setFps($$("fps").value);
 		}
