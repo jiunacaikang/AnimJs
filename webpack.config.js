@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
     output: {
-        filename: 'index.js',
+        filename: 'anim.js',
         path: path.resolve(__dirname,'./lib')
     },
     module: {
