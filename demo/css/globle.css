@@ -1,0 +1,61 @@
+@charset "utf-8";
+/* 禁用iPhone中Safari的字号自动调整 */
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+/* 去除iPhone中默认的input样式 */
+input,textarea{outline: none;}
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input{-webkit-appearance:none; resize: none;}
+button{background: none;border:none;outline: none;}
+/* 取消链接高亮  */
+body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article, 
+aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{ -webkit-tap-highlight-color:rgba(0, 0, 0, 0); }
+/* 设置HTML5元素为块 */
+article, aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section {
+display: block;
+}
+/* 图片自适应 */
+img {display:block;
+max-width: 100%;
+height: auto;
+width:auto\9; /* ie8 */
+-ms-interpolation-mode:bicubic;/*为了照顾ie图片缩放失真*/
+}
+/* 初始化 */
+body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article, 
+aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{margin:0; padding:0; border:none; list-style: none;font-family:PingFangSC,Roboto-Light,SanFranciscoDisplay;}
+body{color:#666;background: #f3f3f3; font-size: 12px;}
+em,i{font-style:normal;}
+strong{font-weight: normal;}
+.clearfix:after{content:""; display:block; visibility:hidden; height:0; clear:both;}
+.clearfix{zoom:1;}
+a{text-decoration:none;font-size: 12px;}
+a:visited{text-decoration:none;}
+a:hover{text-decoration:none;}
+a{outline: none;}
+ul,ol{list-style:none;}
+p{font-size: 12px;}
+img{border: none;}
+/* 清除浮动 */
+.clearfix:after{content:""; display:block; visibility:hidden; height:0; clear:both;}
+.clearfix{zoom:1;}
+/* 自定义 */
+.c_f{
+	color:#fff;
+}
+.tc{
+	text-align: center;
+}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.hide{
+	display: none;
+}

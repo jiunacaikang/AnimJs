@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<title>anim</title>
+	<link rel="stylesheet" type="text/css" href="css/globle.css">
+	<style type="text/css">
+		*{margin:0;padding:0}
+		body{
+			background: rgba(150,150,150,.2);
+		}
+		.hide{
+			display: none;
+		}
+		#img{
+			width: 79px;
+			height: 79px;
+			display: block;
+			margin:50px auto;
+			background: url(img/egg.png) no-repeat;
+			border:1px solid #ddd;
+		}
+		.btn-group{
+			text-align: center;
+		}
+		.btn{
+			height: 40px;
+			width: 100px;
+			line-height: 30px;
+			border:1px solid #ccc;
+			border-radius: 5px;
+			margin:0 5px;
+			cursor: pointer;
+			display: inline-block;
+			background: #dedede;
+			transition:all 0.3s;
+			box-shadow: 2px 2px 5px 0px #ccc;
+		}
+		.ipt{
+			background: #efefef;
+			cursor: text;
+			padding-left:10px;
+			width: 90px;
+			height: 38px;
+		}
+		button:hover{
+			background: #ccc;
+		}
+		#fps{
+			cursor: pointer;
+		}
+		.num{
+			padding: 5px;
+		}
+		input[type=range] {
+		    -webkit-appearance: none;
+		    width: 175px;
+		    border-radius: 10px; /*这个属性设置使填充进度条时的图形为圆角*/
+		}
+		input[type=range]::-webkit-slider-thumb {
+		    -webkit-appearance: none;
+		} 
+		input[type=range]::-webkit-slider-runnable-track {
+		    height: 8px;
+		    border-radius: 8px; /*将轨道设为圆角的*/
+		    box-shadow: 0 1px 1px #def3f8, inset 0 2px 2px #999; /*轨道内置阴影效果*/
+		}
+		input[type=range]:focus {
+		    outline: none;
+		}
+		input[type=range]::-webkit-slider-thumb {
+		    -webkit-appearance: none;
+		    height: 20px;
+		    width: 20px;
+		    margin-top: -8px; /*使滑块超出轨道部分的偏移量相等*/
+		    background: #ffffff; 
+		    border-radius: 50%; /*外观设置为圆形*/
+		    border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
+		    box-shadow: 0 .125em .125em #999; /*添加底部阴影*/
+		}
+		.canvasWrap{
+			width:166px;
+			height: 321px;
+			margin:20px auto;
+		}
+		canvas{
+			display: block;
+			transform:translate3d(-50%, 0, 0) scale(0.5);
+			transform-origin: top right;
+		}
+	</style>
+</head>
+<body>
+	<div class="imgWrap ">
+		<div id="img"></div>
+		<div class="btn-group">
+			<button class="btn" id="start">start</button><input class="btn ipt" type="text"  id="times" placeholder="播放几次">
+			<button class="btn" id="pause">pause</button>
+			<button class="btn" id="play">play</button><br><br><br>
+			<button class="btn" id="stop">stop</button>
+			<input class="btn ipt" type="text"  id="stopTo" placeholder="停在第几帧">
+			<span class="num">5</span><input type="range" id="fps" min='5' max='25' value="10"><span class="num">35</span>
+		</div>
+	</div>
+	<div class="canvasWrap">
+		<canvas id="canvas" width="313" height="641" data-times="2" data-stopTo="18" data-src="./img/scanning.png"></canvas>
+	</div>
+	<script type="text/javascript" src="../lib/index.js"></script>
+    <script type="text/javascript">
+    function $$(id){
+      return document.getElementById(id)
+    }
+		var an;
+		var timeBox = $$("img");
+		
+		$$("start").onclick = function(){
+			if (!an){//实例化一个动画对象
+				an = new Anim(11);
+			}else{//重新开始
+				an.init();
+			}
+			//当前实例的方法
+			an.run = function(i){
+				timeBox.style.backgroundPosition = - (i - 1) * 78.5 + "px 0px"
+			}
+			//动画跑起来 并且设置帧率
+			an.start($$("times").value).setFps($$("fps").value);
+		}
+		//暂停
+		$$("pause").onclick = function(){
+			an && an.pause();
+		}
+		//恢复
+		$$("play").onclick = function(){
+			an && an.play();
+		}
+		//停止
+		$$("stop").onclick = function(){
+			an && an.stop($$("stopTo").value||1)
+		}
+		//设置帧率
+		$$("fps").onchange = function(){
+			an && an.setFps(this.value)
+		}
+
+		//此方式注意:
+		//1.需要传入canvas的id
+		//2.canvas标签要绑定需要的图片地址
+		//3.canvas需设置宽高且宽高为一帧的尺寸
+		//4.另外可以在canvas标签设置播放多少次后结束、以及结束后停留在第几帧和结束回调
+		var cn = new Anim(47,16,"canvas",function(){
+			console.log("aotuPlay end");
+		});
+		/* cn.run = function(i){
+			console.log(i)
+		}
+		cn.pause();
+		setTimeout(() => cn.pause(),1000);
+		setTimeout(() => cn.setFps(10),2000);
+		setTimeout(() => cn.play(),3000);
+		setTimeout(() => cn.stop(-1),1000); */
+	</script>
+</body>
+</html>
