@@ -1,7 +1,7 @@
 # fpsAnim
-``` bash
-fps animation
 
+fps animation
+``` bash
 npm run dev 
 
 #uglify & drop console.log
