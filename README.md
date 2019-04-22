@@ -9,7 +9,7 @@ npm run build
 ```
 
 
-演示地址：<a href="https://jiunacaikang.github.io/fpsAnim/demo/" target="_blank">fpsAnim</a>
+演示地址：<a href="https://jiunacaikang.github.io/AnimJs/demo/" target="_blank">fpsAnim</a>
 # 使用方法(可以链式调用)
 ```javascript
 //普通实例化 num是动画帧数 fps是帧率

@@ -100,11 +100,11 @@
 			<button class="btn" id="play">play</button><br><br><br>
 			<button class="btn" id="stop">stop</button>
 			<input class="btn ipt" type="text"  id="stopTo" placeholder="停在第几帧">
-			<span class="num">5</span><input type="range" id="fps" min='5' max='25' value="10"><span class="num">35</span>
+			<span class="num">5</span><input type="range" id="fps" min='5' max='40' value="10"><span class="num">40</span>
 		</div>
 	</div>
 	<div class="canvasWrap">
-		<canvas id="canvas" width="313" height="641" data-times="2" data-stopTo="18" data-src="./img/scanning.png"></canvas>
+		<canvas id="canvas" width="313" height="641" data-times="3" data-stopTo="18" data-src="./img/scanning.png"></canvas>
 	</div>
 	<script type="text/javascript" src="../lib/anim.js"></script>
     <script type="text/javascript">
@@ -123,6 +123,11 @@
 			//当前实例的方法
 			an.run = function(i){
 				timeBox.style.backgroundPosition = - (i - 1) * 78.5 + "px 0px"
+			}
+			if(!isNaN($$("stopTo").value)){
+				console.log($$("stopTo").value)
+				an.start($$("times").value).setFps($$("fps").value).thenStop($$("stopTo").value);
+				return false;
 			}
 			//动画跑起来 并且设置帧率
 			an.start($$("times").value).setFps($$("fps").value);
