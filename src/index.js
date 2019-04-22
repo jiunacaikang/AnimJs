@@ -1,5 +1,5 @@
 import './common/animationFrame'
-import utils from './common/utils'
+import { getType,assert } from './common/utils'
 
 /**
  * [Anim description]
@@ -9,14 +9,9 @@ import utils from './common/utils'
  * @param {[Function]} cb [canvas动画结束回调，只在canvas动画时有效]
  */
 function Anim(total, fps, id, cb) {
-    if (!(this instanceof Anim)) {
-        console.error("使用有误，请new实例化Anim");
-        return false;
-    }
-    if (isNaN(total) || total <= 0) {
-        console.error("参数有误，num必传且为正整数");
-        return false;
-    }
+    assert(this instanceof Anim,"使用有误，请new实例化Anim");
+    assert(0 < total && !isNaN(total),"参数有误，num必传且为正整数")
+
     this.init = function () {
         // ‘_’ 开头的变量 为内部变量 可访问 不能修改
         this._totalFrame = total; //动画帧数
@@ -77,7 +72,7 @@ function Anim(total, fps, id, cb) {
         }
         if (this._lastFrame != curFrame) { //进入到下一帧 执行回调
             //run方法具有多态性质，每个动画实例实现逻辑单独扩展
-            this.run && utils.getType(this.run) === 'Function' && this.run(curFrame);
+            this.run && getType(this.run) === 'Function' && this.run(curFrame);
             this._lastFrame = curFrame;
         }
     }
@@ -131,7 +126,7 @@ function Anim(total, fps, id, cb) {
  * @param {Function} cb [播放结束，回调函数，会被stop行为的回调函数给覆盖]
  */
 Anim.prototype.start = function (times, cb) {
-    cb && utils.getType(cb) === 'Function' && (this._cb = cb);
+    cb && getType(cb) === 'Function' && (this._cb = cb);
     times && (this._totleTimes = times);
     !this._autoPlay && this._run(); //如果是自动经播放不用再次执行this._run
     this._started = true;
@@ -150,7 +145,7 @@ Anim.prototype.setFps = function (n, cb) {
     }
     console.log("设置fps: " + n)
     this._fps = n;
-    cb && utils.getType(cb) === 'Function' && cb();
+    cb && getType(cb) === 'Function' && cb();
     return this;
 }
 /**
@@ -167,7 +162,7 @@ Anim.prototype.pause = function (cb) {
     this._paused = true; //暂停标记
     this._autoPlay = false; //为了可以再次开始
     cancelAnimationFrame(this._animId);
-    cb && utils.getType(cb) === 'Function' && cb();
+    cb && getType(cb) === 'Function' && cb();
     return this;
 }
 /**
@@ -179,7 +174,7 @@ Anim.prototype.play = function (cb) {
     console.log("animate play");
     this._paused = false;
     this._animId = requestAnimationFrame(() => this.start(this.times));
-    cb && utils.getType(cb) === 'Function' && cb();
+    cb && getType(cb) === 'Function' && cb();
     return this;
 }
 /**
@@ -192,7 +187,7 @@ Anim.prototype.thenStop = function (n, cb) {
     n = n == 0 ? Math.floor(this._frameDurning) : Number(n);
     n <= -1 && (n = Math.max(this._totalFrame + n + 1, 1));
     n && (this._stopTo = Math.min(this._totalFrame, n));
-    cb && utils.getType(cb) === 'Function' && (this._cb = cb);
+    cb && getType(cb) === 'Function' && (this._cb = cb);
 }
 /**
  * [stop 停止]
@@ -205,7 +200,7 @@ Anim.prototype.stop = function (n, cb) {
     n = n == 0 ? Math.floor(this._frameDurning) : Number(n);
     n <= -1 && (n = Math.max(this._totalFrame + n + 1, 1));
     n && (this._stopTo = Math.min(this._totalFrame, n));
-    cb && utils.getType(cb) === 'Function' && (this._cb = cb);
+    cb && getType(cb) === 'Function' && (this._cb = cb);
     console.log("%c" + this._animName + " will stop at: " + this._stopTo, "color:#4bbff6");
 
     if (Math.floor(this._frameDurning) <= this._stopTo) {
