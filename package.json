@@ -2,7 +2,7 @@
   "name": "anim",
   "version": "0.0.1",
   "description": "fps animation",
-  "main": "lib/index.js",
+  "main": "lib/anim.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --progress --colors --watch --mode development",
